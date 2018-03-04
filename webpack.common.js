@@ -1,6 +1,9 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './index.html',
   filename: 'index.html',
@@ -30,27 +33,35 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['env', 'react']
-        }
+        loader: 'babel-loader'
       },
       {
-        test: /\.s?css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
+        test: /\.s?css/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader'],
+        }),
+      },
+      {
+        test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: '2000',
+            name: '[name].[hash:6].[ext]',
+          },
+        }],
       }
     ]
   },
   output: {
     path: buildDir,
-    filename: '[hash:6].bundle.js'
+    filename: 'bundle.[hash:6].js'
   },
   plugins: [
     HtmlWebpackPluginConfig,
-    new CleanWebpackPlugin(['dist'])
+    new CleanWebpackPlugin(['dist']),
+    new ExtractTextPlugin('styles.css'),
+    new OpenBrowserPlugin({url: 'http://localhost:8080'})
   ]
 };
