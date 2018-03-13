@@ -1,28 +1,29 @@
 import React, {Component} from 'react'
-import ReactDom from 'react-dom'
 import {Provider} from 'react-redux'
 import {render} from 'react-dom'
 import {
   BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
+  Switch
+} from 'react-router-dom'
 import './styles/style.scss'
-
 import rootReducer from './reducers'
-import {configureStore} from './store';
-const store = configureStore({}, rootReducer);
-
+import {configureStore} from './store'
+import Layout from './layout'
 // pages
 import Landing from './pages/Landing'
+import Inner from './pages/Inner'
+
+const store = configureStore({}, rootReducer);
 
 class App extends Component {
   render() {
+
     return(
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route path='/' exact component={Landing} />
+            <Layout path="/" exact component={Landing} />
+            <Layout path="/inner" component={Inner} />
           </Switch>
         </Router>
       </Provider>

@@ -15,8 +15,18 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "./node_modules/.bin/rimraf dist/",
     "start": "./node_modules/.bin/webpack-dev-server --config ./webpack.dev.js",
-    "build": "./node_modules/.bin/webpack --config ./webpack.prod.js --progress --colors --profile"
+    "build": "./node_modules/.bin/webpack --config ./webpack.prod.js --progress --colors --profile",
+    "lint:all": "./node_modules/.bin/eslint . --ext .js --ext .jsx",
+    "lint-precommit": "lint-staged"
   },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "./node_modules/.bin/eslint"
+    ]
+  },
+  "pre-commit": [
+    "lint-precommit"
+  ],
   "author": "Sarkany Adrian <sarkany1@outlook.com>",
   "bugs": {
     "url": "https://github.com/Sarkany-Adrian/webpack-react-redux-starter/issues"
@@ -33,16 +43,28 @@
   "devDependencies": {
     "axios": "0.18.0",
     "babel-core": "6.26.0",
+    "babel-eslint": "8.2.2",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-2": "6.24.1",
     "clean-webpack-plugin": "0.1.18",
     "css-loader": "0.28.9",
+    "eslint": "4.18.2",
+    "eslint-config-standard": "11.0.0",
+    "eslint-config-standard-jsx": "5.0.0",
+    "eslint-import-resolver-webpack": "0.8.4",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-node": "6.0.1",
+    "eslint-plugin-promise": "3.7.0",
+    "eslint-plugin-react": "7.7.0",
+    "eslint-plugin-standard": "3.0.1",
     "extract-text-webpack-plugin": "3.0.2",
     "html-webpack-plugin": "2.30.1",
+    "lint-staged": "7.0.0",
     "node-sass": "4.7.2",
     "open-browser-webpack-plugin": "0.0.5",
+    "pre-commit": "1.2.2",
     "react": "16.1.1",
     "react-dom": "16.1.1",
     "react-redux": "5.0.7",
