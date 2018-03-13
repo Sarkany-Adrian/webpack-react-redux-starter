@@ -6,7 +6,9 @@ const dist = path.resolve(__dirname, 'dist');
 
 module.exports = merge(common, {
   devServer: {
-    contentBase: dist
+    contentBase: dist,
+    historyApiFallback: true,
+    port: 3000
   },
   watchOptions: {
     ignored: '/node_modules'

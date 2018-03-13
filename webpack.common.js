@@ -1,8 +1,8 @@
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './index.html',
@@ -14,10 +14,10 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     removeComments: true,
     removeRedundantAttributes: true
   }
-});
+})
 
-const srcDir = path.resolve(__dirname, 'src');
-const buildDir = path.resolve(__dirname, 'dist');
+const srcDir = path.resolve(__dirname, 'src')
+const buildDir = path.resolve(__dirname, 'dist')
 
 module.exports = {
   context: srcDir,
@@ -39,8 +39,8 @@ module.exports = {
         test: /\.s?css/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader'],
-        }),
+          use: ['css-loader', 'sass-loader']
+        })
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
@@ -48,9 +48,9 @@ module.exports = {
           loader: 'url-loader',
           options: {
             limit: '2000',
-            name: '[name].[hash:6].[ext]',
-          },
-        }],
+            name: '[name].[hash:6].[ext]'
+          }
+        }]
       }
     ]
   },
@@ -62,6 +62,6 @@ module.exports = {
     HtmlWebpackPluginConfig,
     new CleanWebpackPlugin(['dist']),
     new ExtractTextPlugin('styles.css'),
-    new OpenBrowserPlugin({url: 'http://localhost:8080'})
+    new OpenBrowserPlugin({url: 'http://localhost:3000'})
   ]
-};
+}
