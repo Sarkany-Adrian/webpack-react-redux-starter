@@ -1,8 +1,8 @@
 const path = require('path')
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './index.html',
@@ -45,7 +45,7 @@ module.exports = {
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
         use: [{
-          loader: 'url-loader',
+          loader: 'file-loader',
           options: {
             limit: '2000',
             name: '[name].[hash:6].[ext]'
@@ -56,12 +56,19 @@ module.exports = {
   },
   output: {
     path: buildDir,
-    filename: 'bundle.[hash:6].js'
+    filename: 'bundle.[hash:6].js',
+    publicPath: '/'
   },
   plugins: [
     HtmlWebpackPluginConfig,
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.[hash:8].js',
+      minChunks(module) {
+        return module.context && module.context.indexOf('node_modules') >= 0;
+      }
+    }),
     new CleanWebpackPlugin(['dist']),
-    new ExtractTextPlugin('styles.css'),
-    new OpenBrowserPlugin({url: 'http://localhost:3000'})
+    new ExtractTextPlugin('styles.css')
   ]
 }
