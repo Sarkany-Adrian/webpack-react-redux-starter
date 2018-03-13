@@ -1,5 +1,6 @@
 import {connect} from 'react-redux'
 import Landing from './Landing'
+import './Landing.scss'
 
 const mapStateToProps = state => {
   return {

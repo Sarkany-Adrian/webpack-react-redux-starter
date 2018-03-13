@@ -12,6 +12,7 @@ import Layout from './layout'
 // pages
 import Landing from './pages/Landing'
 import Inner from './pages/Inner'
+import NotFound from './pages/NotFound'
 
 const store = configureStore({}, rootReducer);
 
@@ -24,6 +25,7 @@ class App extends Component {
           <Switch>
             <Layout path="/" exact component={Landing} />
             <Layout path="/inner" component={Inner} />
+            <Layout component={NotFound} />
           </Switch>
         </Router>
       </Provider>
